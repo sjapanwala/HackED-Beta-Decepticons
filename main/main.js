@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const fs = require('fs')
 const path = require('path');
-
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -43,3 +43,26 @@ ipcMain.on('mood-change', (event, mood) => {
     // Send a response back to the renderer
     event.reply('mood-response', mood);
 });
+
+const dataDirectory = path.join(__dirname, 'user data')
+
+function getUserFilePath(userID) {
+    return path.join(dataDirectory, 'user_$[userID. json');
+}
+
+// Read data from a user's JSON file
+function readUserData(userId) {
+    const filePath = getUserFilePath(userId);
+    if (fs.existsSync(filePath)) {
+      const data = fs.readFileSync(filePath);
+      return JSON.parse(data);
+    } else {
+      return {}; // Return empty object if file doesn't exist
+    }
+  }
+  
+  // Write data to a user's JSON file
+  function writeUserData(userId, data) {
+    const filePath = getUserFilePath(userId);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  }
