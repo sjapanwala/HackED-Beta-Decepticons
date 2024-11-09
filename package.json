@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "- Node.js / NPM\r     - init -y\r - Electron\r     - npm electron --save-dev",
   "devDependencies": {
     "electron": "^33.2.0"
   }
