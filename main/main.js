@@ -73,25 +73,31 @@ ipcMain.on('mood-change', (event, mood) => {
     event.reply('mood-response', mood);
 });
 
-const dataDirectory = path.join(__dirname, 'user data')
+// main.js
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const userData = require('./userData');
 
-function getUserFilePath(userID) {
-    return path.join(dataDirectory, 'user_$[userID. json');
+function createWindow() {
+  const win = new BrowserWindow({
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js') // Use preload for security
+    }
+  });
+  win.loadFile('index.html');
 }
 
-// Read data from a user's JSON file
-function readUserData(userId) {
-    const filePath = getUserFilePath(userId);
-    if (fs.existsSync(filePath)) {
-      const data = fs.readFileSync(filePath);
-      return JSON.parse(data);
-    } else {
-      return {}; // Return empty object if file doesn't exist
-    }
-  }
-  
-  // Write data to a user's JSON file
-  function writeUserData(userId, data) {
-    const filePath = getUserFilePath(userId);
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-  }
+app.whenReady().then(createWindow);
+
+ipcMain.handle('add-journal-entry', (event, userId, entry) => {
+  userData.addJournalEntry(userId, entry);
+});
+
+ipcMain.handle('get-journal-entries', (event, userId) => {
+  return userData.readUserData(userId).entries || [];
+});
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});
+
