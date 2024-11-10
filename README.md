@@ -1,6 +1,6 @@
 # HackED-Beta-Decepticons
 
-# Our Project is called MoodMate.It is a webapp that allows for you to log each day of your life. This allows for you to enter your daily thoughts and reflect upon your day. Write down a description of all the things that happened, click through the emotions you went through today and interact with our our AI and talk through your days. Our app also allows for you to hook up your google calender and our AI will schedule you an optimized to do list.  
+# Our Project is called MoodMate.It is a webapp that allows for you to log each day of your life. This allows for you to enter your daily thoughts and reflect upon your day. Write down a description of all the things that happened, click through the emotions you went through today and interact with our our AI and talk through your days. Our AI also offers other features besides asking you about your day, it also is able to analyze moods based on past logs and is able to suggest certain activities to improve the users mood.  Our app also allows for you to hook up your google calender and our AI will schedule you an optimized to do list.
 
 ### Dependencies Needed
 - Node.js / NPM
