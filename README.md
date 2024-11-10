@@ -21,5 +21,6 @@
    ├── 📄 index.html (this is the index.html / the hyper text file)
    ├── 📄 preload.js (this is the preload, bascially where it gets permissions)
    ├── 📄 renderer.js (this is the scripting functions)
+   ├── 📄 auth.html (this is the authenticatuion pop up)
    └── 📄 styles.css (this is the styles of the webpage)
 ```

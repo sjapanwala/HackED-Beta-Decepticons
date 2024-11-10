@@ -49,6 +49,7 @@ function createWindow() {
     });
 }
 
+
 // Initializes the application when Electron is ready
 app.whenReady().then(createWindow);
 
@@ -66,12 +67,6 @@ app.on('activate', () => {
     }
 });
 
-// Listens for 'mood-change' events from the renderer process
-// Logs the mood change and sends a response back to the renderer
-ipcMain.on('mood-change', (event, mood) => {
-    console.log('Mood changed to:', mood);
-    event.reply('mood-response', mood);
-});
 
 // main.js
 ipcMain.handle('add-journal-entry', (event, userId, entry) => {
