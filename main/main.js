@@ -49,6 +49,7 @@ function createWindow() {
     });
 }
 
+
 // Initializes the application when Electron is ready
 app.whenReady().then(createWindow);
 
@@ -66,38 +67,7 @@ app.on('activate', () => {
     }
 });
 
-// Listens for 'mood-change' events from the renderer process
-// Logs the mood change and sends a response back to the renderer
-ipcMain.on('mood-change', (event, mood) => {
-    console.log('Mood changed to:', mood);
-    event.reply('mood-response', mood);
-});
 
-// main.js
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
-const userData = require('./userData');
 
-function createWindow() {
-  const win = new BrowserWindow({
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js') // Use preload for security
-    }
-  });
-  win.loadFile('index.html');
-}
 
-app.whenReady().then(createWindow);
-
-ipcMain.handle('add-journal-entry', (event, userId, entry) => {
-  userData.addJournalEntry(userId, entry);
-});
-
-ipcMain.handle('get-journal-entries', (event, userId) => {
-  return userData.readUserData(userId).entries || [];
-});
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
 
