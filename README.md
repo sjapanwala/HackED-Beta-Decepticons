@@ -2,10 +2,11 @@
 
 ### Dependencies Needed
 - Node.js / NPM
-    - init -y
+    - 
 - NPM Depenedencies
-    - npm electron --save-dev
+    - npm install electron --save-dev
     - npm install googleapis
+    - npm install dotenv
 
 ```txt
 -- please add any changes to files / any new files in here to keep track of it --
