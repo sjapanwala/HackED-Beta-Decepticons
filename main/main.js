@@ -74,21 +74,6 @@ ipcMain.on('mood-change', (event, mood) => {
 });
 
 // main.js
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
-const userData = require('./userData');
-
-function createWindow() {
-  const win = new BrowserWindow({
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js') // Use preload for security
-    }
-  });
-  win.loadFile('index.html');
-}
-
-app.whenReady().then(createWindow);
-
 ipcMain.handle('add-journal-entry', (event, userId, entry) => {
   userData.addJournalEntry(userId, entry);
 });
@@ -96,8 +81,3 @@ ipcMain.handle('add-journal-entry', (event, userId, entry) => {
 ipcMain.handle('get-journal-entries', (event, userId) => {
   return userData.readUserData(userId).entries || [];
 });
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
-
