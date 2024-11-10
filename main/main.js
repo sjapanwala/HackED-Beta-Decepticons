@@ -1,9 +1,15 @@
+require('dotenv').config();
+
+
 const { app, BrowserWindow, ipcMain } = require('electron');
 const fs = require('fs')
 const path = require('path');
+const { google } = require('googleapis');
+
 
 // This flag should be replaced with actual authentication logic
 let auth = false;
+
 
 /**
  * Creates the main application window.
@@ -23,8 +29,10 @@ function createWindow() {
         }
     });
 
+
     win.loadFile(path.join(__dirname, '../renderer/index.html'));
     win.webContents.openDevTools();
+
 
     // this is where the auth window opens
     // the path to the auth window is '../renderer/auth.html'
@@ -41,8 +49,10 @@ function createWindow() {
             }
         });
 
+
         authWindow.loadFile(path.join(__dirname, '../renderer/auth.html'));
     }
+
 
     win.on('closed', () => {
         app.quit();
@@ -53,12 +63,14 @@ function createWindow() {
 // Initializes the application when Electron is ready
 app.whenReady().then(createWindow);
 
+
 // Quits the application when all windows are closed, except on macOS
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
+
 
 // Recreates a window if the application is activated and no windows are open
 app.on('activate', () => {
@@ -70,4 +82,19 @@ app.on('activate', () => {
 
 
 
+// Listens for 'mood-change' events from the renderer process
+// Logs the mood change and sends a response back to the renderer
+ipcMain.on('mood-change', (event, mood) => {
+    console.log('Mood changed to:', mood);
+    event.reply('mood-response', mood);
+});
+
+
+
+
+
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});
 

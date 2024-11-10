@@ -44,8 +44,8 @@ def main():
     if sys.argv[1] == "read":
         read_data(file_path)
     elif sys.argv[1] == "write":
-        title = sys.argv[1]
-        content = sys.argv[2]
+        title = sys.argv[2]
+        content = sys.argv[3]
         write_to_json_file(file_path, title, content)
 
 if __name__ == "__main__":
