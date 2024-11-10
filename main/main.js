@@ -80,6 +80,8 @@ app.on('activate', () => {
 });
 
 
+
+
 // Listens for 'mood-change' events from the renderer process
 // Logs the mood change and sends a response back to the renderer
 ipcMain.on('mood-change', (event, mood) => {
