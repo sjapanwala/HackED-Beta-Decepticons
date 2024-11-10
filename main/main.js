@@ -6,7 +6,18 @@ const fs = require('fs')
 const path = require('path');
 const { google } = require('googleapis');
 
+const oauth2Client = new google.auth.OAuth2(
+    process.env.CLIENT_ID,        // Replace with your actual client ID from Google Developer Console
+    process.env.CLIENT_SECRET,    // Replace with your actual client secret from Google Developer Console
+    process.env.REDIRECT_URI      // Replace with your redirect URI (e.g., http://localhost:3000/oauth2callback)
+);
 
+const authUrl = oauth2Client.generateAuthUrl({
+    access_type: 'offline',          // Offline access to get refresh token
+    scope: ['https://www.googleapis.com/auth/calendar','https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email'],  // Define the permissions you're requesting
+});
+
+console.log('Authorize this app by visiting this URL:', authUrl);
 // This flag should be replaced with actual authentication logic
 let auth = false;
 
@@ -88,6 +99,10 @@ ipcMain.on('mood-change', (event, mood) => {
     console.log('Mood changed to:', mood);
     event.reply('mood-response', mood);
 });
+
+
+
+
 
 
 
