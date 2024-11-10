@@ -94,6 +94,10 @@ ipcMain.on('mood-change', (event, mood) => {
 
 
 
+
+
+
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
